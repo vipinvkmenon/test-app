@@ -8,3 +8,11 @@ applications:
     ./resources
   buildpacks:
     - staticfile_buildpack
+- name: i311636-simple-oidc
+  docker:
+    image: qlik/simple-oidc-provider
+  memory: 256M
+  instances: 1
+  env:
+    REDIRECTS: https://i311636-simple-oidc.cfapps.ap10.hana.ondemand.com/login/callback
+

@@ -64,6 +64,7 @@ jobs:
           
       - name: Login to Cloud Foundry environment
         run: |
+          export CF_TRACE=true
           cf auth --assertion ${{steps.get-github-jwt.outputs.githubJwt}} --origin ${{inputs.userOrigin}}
 
       - name: Target Cloud Foundry org and space

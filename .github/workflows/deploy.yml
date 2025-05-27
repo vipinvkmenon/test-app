@@ -5,7 +5,7 @@ on:
     inputs:
       cfApiEndpointUrl:
         description: 'Cloud Foundry environment API endpoint'
-        default: 'https://api.cf.ap10.hana.ondemand.com/'
+        default: 'https://api.cf.ap10.hana.ondemand.com'
         required: true
         type: string
       cfOrg:

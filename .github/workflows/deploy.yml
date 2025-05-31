@@ -57,7 +57,7 @@ jobs:
           echo $githubJwt > a.json
           cat a.json
           echo "json Keys"
-          echo $githubJwt | jq -R 'keys_unsorted'
+          echo $githubJwt | jq -R 'split(".") | .[0],.[1] | keys_unsorted'
           echo "----"
           echo $githubJwt | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
           echo "githubJwt=$githubJwt" >> $GITHUB_OUTPUT

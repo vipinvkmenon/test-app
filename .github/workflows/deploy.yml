@@ -65,6 +65,12 @@ jobs:
           
       - name: Login to Cloud Foundry environment
         run: |
+          echo "Testing" > a.txt
+          echo ${{steps.get-github-jwt.outputs.githubJwt}} >> a.txt
+          echo "Contents of a.txt"
+          echo a.txt
+          echo "cat txt"
+          cat a.txt
           export CF_TRACE=true
           cf auth --assertion ${{steps.get-github-jwt.outputs.githubJwt}} --origin ${{inputs.userOrigin}}
 

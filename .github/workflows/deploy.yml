@@ -54,11 +54,6 @@ jobs:
           echo "Fancy Action URL" $ACTIONS_ID_TOKEN_REQUEST_URL
           echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN
           githubJwt=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" -H "Accept: application/json; api-version=2.0" -H "Content-Type: application/json" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=${{inputs.tenantIssuerUri}}" | jq -r '.value')
-          echo $githubJwt > a.json
-          cat a.json
-          echo "json Keys"
-          echo $githubJwt | jq -R 'split(".") | .[0],.[1] | keys_unsorted'
-          echo "----"
           echo $githubJwt | jq -R 'split(".") | .[0],.[1] | @base64d | fromjson'
           echo "githubJwt=$githubJwt" >> $GITHUB_OUTPUT
 
@@ -68,12 +63,7 @@ jobs:
           
       - name: Login to Cloud Foundry environment
         run: |
-          echo "Testing" > a.txt
-          echo ${{steps.get-github-jwt.outputs.githubJwt}} >> a.txt
-          echo "Contents of a.txt"
-          echo a.txt
-          echo "cat txt"
-          cat a.txt
+
           export CF_TRACE=true
           cf auth --assertion ${{steps.get-github-jwt.outputs.githubJwt}} --origin ${{inputs.userOrigin}}
 
